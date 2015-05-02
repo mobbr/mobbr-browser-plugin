@@ -1,3 +1,3 @@
-chrome://extensions
-Developer mode
-Load unpacked extension...
+1. chrome://extensions
+2. Developer mode
+3. Load unpacked extension...
