@@ -1,19 +1,19 @@
 {
-  "name": "Mobbr",
-  "version": "0.0.1",
-  "description": "Finds participation in the web page you're on and pops up a window.",
-  "icons": { "64": "icon.png" },
-  "background": { "scripts": ["background.js"] },
-  "content_scripts": [
-    { "matches": ["http://*/*", "https://*/*"], "js": ["mobbr_content_script.js"] }
-  ],
-  "permissions": [
-    "tabs"
-  ],
-  "page_action": {
-      "default_icon": "mobbr.png",
-      "default_popup": "popup.html"
-  },
-  "manifest_version": 2,
-  "content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self'"
+	"name": "Mobbr",
+	"version": "0.0.1",
+	"description": "Finds participation in the web page you're on and pops up a window.",
+	"icons": { "64": "icon.png" },
+	"background": { "scripts": ["background.js"] },
+	"content_scripts": [
+		{ "matches": ["http://*/*", "https://*/*"], "js": ["mobbr_content_script.js"] }
+	],
+	"permissions": [
+		"tabs"
+	],
+	"browser_action": {
+		"default_icon": "mobbr16gs.png",
+		"default_popup": "popup.html"
+	},
+	"manifest_version": 2,
+	"content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self'"
 }
