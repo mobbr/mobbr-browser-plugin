@@ -7,7 +7,7 @@ if (window == top) {
 var findParticipation = function() {
 	var participation = document.getElementsByName("participation");
 	if (participation.length > 0) {
-		return window.location.href;
+		return {url: window.location.href, participation: true};
 	}
-	return "";
+	return {url: window.location.href, participation: false};
 }
