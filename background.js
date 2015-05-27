@@ -29,7 +29,7 @@ function detectApi(url, tabId) {
 	nanoajax.ajax(options, function (code, responseText) {
 		if(code == 200 && urlFound(url, JSON.parse(responseText)["result"]))
 		{
-			chrome.browserAction.setIcon({path: "mobbr16.png", tabId: tabId});
+			chrome.browserAction.setIcon({path: "icons/mobbr16.png", tabId: tabId});
 			if (selectedId == tabId) {
 				updateSelected(tabId);
 			}
@@ -45,9 +45,9 @@ function updateUrl(tabId) {
 		
 		urls[tabId] = response.url;
 
-		chrome.browserAction.setIcon({path: "mobbr16gs.png", tabId: tabId});
+		chrome.browserAction.setIcon({path: "icons/mobbr16gs.png", tabId: tabId});
 		if (response.participation) {
-			chrome.browserAction.setIcon({path: "mobbr16.png", tabId: tabId});
+			chrome.browserAction.setIcon({path: "icons/mobbr16.png", tabId: tabId});
 			if (selectedId == tabId) {
 				updateSelected(tabId);
 			}

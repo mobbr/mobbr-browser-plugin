@@ -2,8 +2,8 @@
 	"name": "Mobbr",
 	"version": "0.0.1",
 	"description": "Finds participation in the web page you're on and pops up a window.",
-	"icons": { "64": "icon.png" },
-	"background": { "scripts": ["nanoajax.min.js", "background.js"] },
+	"icons": { "64": "icons/icon.png" },
+	"background": { "scripts": ["lib/nanoajax.min.js", "background.js"] },
 	"content_scripts": [
 		{ "matches": ["http://*/*", "https://*/*"], "js": ["mobbr_content_script.js"] }
 	],
@@ -11,7 +11,7 @@
 		"tabs"
 	],
 	"browser_action": {
-		"default_icon": "mobbr16gs.png",
+		"default_icon": "icons/mobbr16gs.png",
 		"default_popup": "popup.html"
 	},
 	"manifest_version": 2,
