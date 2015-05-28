@@ -1,5 +1,5 @@
 function openLightbox() {
-	//todo:
+	mobbr.makePayment(window.location.href);
 }
 
 if (window == top) {
