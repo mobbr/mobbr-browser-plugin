@@ -76,3 +76,6 @@ chrome.tabs.onSelectionChanged.addListener(function(tabId, info) {
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 	updateUrl(tabs[0].id);
 });
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+});
