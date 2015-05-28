@@ -38,7 +38,7 @@ function detectApi(url, tabId) {
 }
 
 function updateUrl(tabId) {
-	chrome.tabs.sendRequest(tabId, {}, function(response) {
+	chrome.tabs.sendRequest(tabId, {reqType: "participation"}, function(response) {
 		if(!(typeof response != 'undefined')) {
 			return;
 		}

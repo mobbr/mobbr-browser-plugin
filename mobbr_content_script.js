@@ -1,6 +1,8 @@
 if (window == top) {
 	chrome.extension.onRequest.addListener(function(req, sender, sendResponse) {
-		sendResponse(findParticipation());
+		if (req.reqType == "participation") {
+			sendResponse(findParticipation());
+		}
 	});
 }
 
