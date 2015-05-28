@@ -1,7 +1,14 @@
+function openLightbox() {
+	//todo:
+}
+
 if (window == top) {
 	chrome.extension.onRequest.addListener(function(req, sender, sendResponse) {
 		if (req.reqType == "participation") {
 			sendResponse(findParticipation());
+		}
+		else if (req.reqType == "lightbox") {
+			openLightbox();
 		}
 	});
 }
