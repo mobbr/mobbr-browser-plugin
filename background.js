@@ -39,13 +39,13 @@ function detectApi(url, tabId) {
 
 function updateUrl(tabId) {
 	chrome.tabs.sendRequest(tabId, {reqType: "participation"}, function(response) {
+		console.log("updateUrl - tabId: " + tabId + ", response: " + JSON.stringify(response));
+		
 		if(!(typeof response != 'undefined')) {
 			return;
 		}
 		
 		urls[tabId] = response.url;
-
-		console.log("updateUrl - tabId: " + tabId + ", url: " + response.url);
 
 		chrome.browserAction.setIcon({path: "icons/mobbr16gs.png", tabId: tabId});
 		if (response.participation) {
@@ -64,6 +64,12 @@ function updateSelected(tabId) {
 
 	console.log("updateSelected - tabId: " + tabId + ", selectedUrl: " + selectedUrl);
 }
+
+chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId) {
+	console.log("chrome.tabs.onReplaced - addedTabId: " + addedTabId + ", removedTabId: " + removedTabId);
+	
+	updateUrl(addedTabId);
+});
 
 chrome.tabs.onUpdated.addListener(function(tabId, change, tab) {
 	console.log("chrome.tabs.onUpdated - tabId: " + tabId + ", change: " + JSON.stringify(change));
