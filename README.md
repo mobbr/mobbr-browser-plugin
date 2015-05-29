@@ -8,7 +8,7 @@ In short: we need the plugin to open the Mobbr lightbox. To see this lightbox, c
 
 ##Test / install plugin
 
-0. fork repo / download repo
-1. chrome://extensions
-2. Developer mode
-3. Load unpacked extension...
+0. Download and unpack code (here: https://github.com/mobbr/mobbr-browser-plugin/archive/master.zip)
+1. In Chrome browser open URL: chrome://extensions
+2. Check 'Developer mode'
+3. Choose 'Load unpacked extension' and browse to code
