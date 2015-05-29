@@ -1,6 +1,16 @@
+function openLightbox() {
+	mobbr.createDiv();
+	mobbr.makePayment(window.location.href);
+}
+
 if (window == top) {
 	chrome.extension.onRequest.addListener(function(req, sender, sendResponse) {
-		sendResponse(findParticipation());
+		if (req.reqType == "participation") {
+			sendResponse(findParticipation());
+		}
+		else if (req.reqType == "lightbox") {
+			openLightbox();
+		}
 	});
 }
 

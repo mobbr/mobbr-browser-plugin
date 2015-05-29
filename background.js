@@ -38,7 +38,7 @@ function detectApi(url, tabId) {
 }
 
 function updateUrl(tabId) {
-	chrome.tabs.sendRequest(tabId, {}, function(response) {
+	chrome.tabs.sendRequest(tabId, {reqType: "participation"}, function(response) {
 		if(!(typeof response != 'undefined')) {
 			return;
 		}
@@ -75,4 +75,8 @@ chrome.tabs.onSelectionChanged.addListener(function(tabId, info) {
 // Ensure the current selected tab is set up.
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 	updateUrl(tabs[0].id);
+});
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+	chrome.tabs.sendRequest(tab.id, {reqType: "lightbox"});
 });
