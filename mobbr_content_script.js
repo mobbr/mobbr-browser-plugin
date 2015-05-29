@@ -1,4 +1,5 @@
 function openLightbox() {
+	mobbr.createDiv();
 	mobbr.makePayment(window.location.href);
 }
 
