@@ -45,6 +45,8 @@ function updateUrl(tabId) {
 		
 		urls[tabId] = response.url;
 
+		console.log("updateUrl - tabId: " + tabId + ", url: " + response.url);
+
 		chrome.browserAction.setIcon({path: "icons/mobbr16gs.png", tabId: tabId});
 		if (response.participation) {
 			chrome.browserAction.setIcon({path: "icons/mobbr16.png", tabId: tabId});
@@ -59,17 +61,23 @@ function updateUrl(tabId) {
 
 function updateSelected(tabId) {
 	selectedUrl = urls[tabId];
+
+	console.log("updateSelected - tabId: " + tabId + ", selectedUrl: " + selectedUrl);
 }
 
 chrome.tabs.onUpdated.addListener(function(tabId, change, tab) {
+	console.log("chrome.tabs.onUpdated - tabId: " + tabId + ", change: " + JSON.stringify(change));
+
 	if (change.status == "complete") {
 		updateUrl(tabId);
 	}
 });
 
-chrome.tabs.onSelectionChanged.addListener(function(tabId, info) {
-	selectedId = tabId;
-	updateSelected(tabId);
+chrome.tabs.onActivated.addListener(function(activeInfo) {
+	console.log("chrome.tabs.onActivated - activeInfo: " + JSON.stringify(activeInfo));
+	
+	selectedId = activeInfo.tabId;
+	updateSelected(activeInfo.tabId);
 });
 
 // Ensure the current selected tab is set up.
