@@ -38,10 +38,13 @@ function detectApi(url, tabId) {
 }
 
 function updateUrl(tabId) {
-	chrome.tabs.sendRequest(tabId, {reqType: "participation"}, function(response) {
-		if(!(typeof response != 'undefined')) {
-			return;
-		}
+	chrome.tabs.sendRequest(tabId, {reqType: "findParticipation"}, function(response) {
+		console.log("updateUrl - tabId: " + tabId + ", response: " + JSON.stringify(response));
+		
+		if (!(typeof response != 'undefined')) return;
+		
+		if (urls[tabId] != response.url)
+			chrome.tabs.sendRequest(tabId, {reqType: "hideLightbox"});
 		
 		urls[tabId] = response.url;
 
@@ -59,17 +62,29 @@ function updateUrl(tabId) {
 
 function updateSelected(tabId) {
 	selectedUrl = urls[tabId];
+
+	console.log("updateSelected - tabId: " + tabId + ", selectedUrl: " + selectedUrl);
 }
 
+chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId) {
+	console.log("chrome.tabs.onReplaced - addedTabId: " + addedTabId + ", removedTabId: " + removedTabId);
+	
+	updateUrl(addedTabId);
+});
+
 chrome.tabs.onUpdated.addListener(function(tabId, change, tab) {
+	console.log("chrome.tabs.onUpdated - tabId: " + tabId + ", change: " + JSON.stringify(change));
+
 	if (change.status == "complete") {
 		updateUrl(tabId);
 	}
 });
 
-chrome.tabs.onSelectionChanged.addListener(function(tabId, info) {
-	selectedId = tabId;
-	updateSelected(tabId);
+chrome.tabs.onActivated.addListener(function(activeInfo) {
+	console.log("chrome.tabs.onActivated - activeInfo: " + JSON.stringify(activeInfo));
+	
+	selectedId = activeInfo.tabId;
+	updateSelected(activeInfo.tabId);
 });
 
 // Ensure the current selected tab is set up.
@@ -78,5 +93,5 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 });
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-	chrome.tabs.sendRequest(tab.id, {reqType: "lightbox"});
+	chrome.tabs.sendRequest(tab.id, {reqType: "openLightbox"});
 });

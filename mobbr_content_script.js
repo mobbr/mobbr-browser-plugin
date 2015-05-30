@@ -3,13 +3,20 @@ function openLightbox() {
 	mobbr.makePayment(window.location.href);
 }
 
+function hideLightbox() {
+	mobbr.hide();
+}
+
 if (window == top) {
 	chrome.extension.onRequest.addListener(function(req, sender, sendResponse) {
-		if (req.reqType == "participation") {
+		if (req.reqType == "findParticipation") {
 			sendResponse(findParticipation());
 		}
-		else if (req.reqType == "lightbox") {
+		else if (req.reqType == "openLightbox") {
 			openLightbox();
+		}
+		else if (req.reqType == "hideLightbox") {
+			hideLightbox();
 		}
 	});
 }
