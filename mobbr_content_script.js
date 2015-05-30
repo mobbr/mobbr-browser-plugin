@@ -3,6 +3,10 @@ function openLightbox() {
 	mobbr.makePayment(window.location.href);
 }
 
+function hideLightbox() {
+	mobbr.hide();
+}
+
 if (window == top) {
 	chrome.extension.onRequest.addListener(function(req, sender, sendResponse) {
 		if (req.reqType == "participation") {
@@ -10,6 +14,9 @@ if (window == top) {
 		}
 		else if (req.reqType == "lightbox") {
 			openLightbox();
+		}
+		else if (req.reqType == "hide") {
+			hideLightbox();
 		}
 	});
 }

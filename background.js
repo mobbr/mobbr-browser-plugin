@@ -45,6 +45,8 @@ function updateUrl(tabId) {
 			return;
 		}
 		
+		if(urls[tabId] != response.url)
+			chrome.tabs.sendRequest(tabId, {reqType: "hide"});
 		urls[tabId] = response.url;
 
 		chrome.browserAction.setIcon({path: "icons/mobbr16gs.png", tabId: tabId});
