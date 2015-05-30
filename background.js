@@ -38,15 +38,14 @@ function detectApi(url, tabId) {
 }
 
 function updateUrl(tabId) {
-	chrome.tabs.sendRequest(tabId, {reqType: "participation"}, function(response) {
+	chrome.tabs.sendRequest(tabId, {reqType: "findParticipation"}, function(response) {
 		console.log("updateUrl - tabId: " + tabId + ", response: " + JSON.stringify(response));
 		
-		if(!(typeof response != 'undefined')) {
-			return;
-		}
+		if (!(typeof response != 'undefined')) return;
 		
-		if(urls[tabId] != response.url)
-			chrome.tabs.sendRequest(tabId, {reqType: "hide"});
+		if (urls[tabId] != response.url)
+			chrome.tabs.sendRequest(tabId, {reqType: "hideLightbox"});
+		
 		urls[tabId] = response.url;
 
 		chrome.browserAction.setIcon({path: "icons/mobbr16gs.png", tabId: tabId});
@@ -94,5 +93,5 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 });
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-	chrome.tabs.sendRequest(tab.id, {reqType: "lightbox"});
+	chrome.tabs.sendRequest(tab.id, {reqType: "openLightbox"});
 });
