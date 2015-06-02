@@ -6,6 +6,8 @@ Check the milestones and issues for required functionality and open tasks.
 
 In short: we need the plugin to open the Mobbr lightbox. To see this lightbox, click the button here: http://ask.mobbr.com/187/where-is-the-add-payment-button
 
+The browser button should be not much more (or less) than 'an-out-of-page' Mobbr-button. With the advantage of course that we can add Mobbr support from the outside. Ideally the button shows amounts like the real button.
+
 ##Test / install plugin
 
 0. Download and unpack code (here: https://github.com/mobbr/mobbr-browser-plugin/archive/master.zip)
