@@ -1,7 +1,7 @@
 {
 	"name": "Mobbr",
 	"version": "0.0.1",
-	"description": "Finds participation in the web page you're on and pops up a window.",
+	"description": "Enables you to crowdfund and pay all user participation on this webpage. Turn the entire web into an anytime anyplace economy",
 	"icons": { "64": "icons/icon.png" },
 	"background": { "scripts": ["lib/nanoajax.min.js", "background.js"] },
 	"content_scripts": [
