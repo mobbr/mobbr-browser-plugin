@@ -1,7 +1,10 @@
 {
 	"name": "Mobbr",
-	"version": "0.0.1",
-	"description": "Enables you to crowdfund and pay all user participation on this webpage. Turn the entire web into an anytime anyplace economy",
+    "short_name" : "Mobbr online payments",
+	"version": "0.1",
+    "author": "Mobbr",
+    "description": "Donate, pay or fund any URL, we make sure everybody get's their fair share.",
+    "homepage_url": "https://mobbr.com",
 	"icons": {
         "64" : "icons/icon.png",
         "16" : "icons/mobbr16.png",
@@ -15,7 +18,7 @@
 		"tabs"
 	],
 	"browser_action": {
-		"default_icon": "icons/mobbr16gs.png"
+		"default_icon": "icons/mobbr16.png"
 	},
 	"manifest_version": 2,
 	"content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self'; connect-src *"
