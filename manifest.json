@@ -2,7 +2,11 @@
 	"name": "Mobbr",
 	"version": "0.0.1",
 	"description": "Enables you to crowdfund and pay all user participation on this webpage. Turn the entire web into an anytime anyplace economy",
-	"icons": { "64": "icons/icon.png" },
+	"icons": {
+        "64" : "icons/icon.png",
+        "16" : "icons/mobbr16.png",
+        "128": "icons/mobbrball128.png"
+    },
 	"background": { "scripts": ["lib/nanoajax.min.js", "background.js"] },
 	"content_scripts": [
 		{ "matches": ["http://*/*", "https://*/*"], "js": ["lib/mobbr-button.js", "mobbr_content_script.js"] }
