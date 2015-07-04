@@ -10,7 +10,7 @@
         "16" : "icons/mobbr16.png",
         "128": "icons/mobbrball128.png"
     },
-	"background": { "scripts": ["lib/nanoajax.min.js", "background.js"] },
+	"background": { "scripts": ["lib/lru.js", "lib/nanoajax.min.js", "background.js"] },
 	"content_scripts": [
 		{ "matches": ["http://*/*", "https://*/*"], "js": ["lib/mobbr-button.js", "mobbr_content_script.js"] }
 	],

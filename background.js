@@ -9,8 +9,7 @@ function getHost(url) {
 	return parser.hostname;
 }
 
-function urlFound(url, api_connections) {
-	var host = getHost(url).toLowerCase();
+function hostFound(host, api_connections) {
 	for (var i = 0; i < api_connections.length; i++) {
 		var conn = api_connections[i];
 		if(conn.hasOwnProperty('host') && conn.host.toLowerCase() == host) {
@@ -20,7 +19,30 @@ function urlFound(url, api_connections) {
 	return false;
 }
 
+function updateSelected(tabId) {
+	selectedUrl = urls[tabId];
+
+	console.log("updateSelected - tabId: " + tabId + ", selectedUrl: " + selectedUrl);
+}
+
+function mobbrEnabledUrl(tabId) {
+	chrome.browserAction.setBadgeText({text: mobbrEnabledUrlBadgeText, tabId: tabId});
+	if (selectedId == tabId) {
+		updateSelected(tabId);
+	}
+}
+
+var detectApi_cache = new LRUCache(20);
 function detectApi(url, tabId) {
+	var host = getHost(url).toLowerCase();
+	var cached_val = detectApi_cache.get(host);
+	if(cached_val != undefined)	{
+		if(cached_val) {
+			mobbrEnabledUrl(tabId);
+		}
+		return;
+	}
+
 	var options = {
 		url: 'https://api.mobbr.com/api_v1/api/api_connections', 
 		method: 'GET', 
@@ -28,11 +50,13 @@ function detectApi(url, tabId) {
 	};
 	
 	nanoajax.ajax(options, function (code, responseText) {
-		if(code == 200 && urlFound(url, JSON.parse(responseText)["result"]))
-		{
-			chrome.browserAction.setBadgeText({text: mobbrEnabledUrlBadgeText, tabId: tabId});
-			if (selectedId == tabId) {
-				updateSelected(tabId);
+		if(code == 200) {
+			if(hostFound(host, JSON.parse(responseText)["result"])) {
+				mobbrEnabledUrl(tabId);
+				detectApi_cache.put(host, true);
+			}
+			else {
+				detectApi_cache.put(host, false);
 			}
 		}
 	});
@@ -51,20 +75,11 @@ function updateUrl(tabId) {
 
 		chrome.browserAction.setBadgeText({text: "", tabId: tabId});
 		if (response.participation) {
-			chrome.browserAction.setBadgeText({text: mobbrEnabledUrlBadgeText, tabId: tabId});
-			if (selectedId == tabId) {
-				updateSelected(tabId);
-			}
+			mobbrEnabledUrl(tabId);
 		} else {
 			detectApi(response.url, tabId);
 		}
 	});
-}
-
-function updateSelected(tabId) {
-	selectedUrl = urls[tabId];
-
-	console.log("updateSelected - tabId: " + tabId + ", selectedUrl: " + selectedUrl);
 }
 
 chrome.tabs.onReplaced.addListener(function(addedTabId, removedTabId) {
