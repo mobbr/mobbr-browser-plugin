@@ -53,10 +53,10 @@ function detectApi(url, tabId) {
 		if(code == 200) {
 			if(hostFound(host, JSON.parse(responseText)["result"])) {
 				mobbrEnabledUrl(tabId);
-				detectApi_cache.put(host, true);
+				detectApi_cache.set(host, true);
 			}
 			else {
-				detectApi_cache.put(host, false);
+				detectApi_cache.set(host, false);
 			}
 		}
 	});
