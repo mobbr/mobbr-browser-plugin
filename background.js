@@ -1,6 +1,7 @@
 var urls = {};
 var selectedUrl = null;
 var selectedId = null;
+var mobbrEnabledUrlBadgeText = '1';
 
 function getHost(url) {
 	var parser = document.createElement('a');
@@ -29,7 +30,7 @@ function detectApi(url, tabId) {
 	nanoajax.ajax(options, function (code, responseText) {
 		if(code == 200 && urlFound(url, JSON.parse(responseText)["result"]))
 		{
-			chrome.browserAction.setIcon({path: "icons/mobbr16.png", tabId: tabId});
+			chrome.browserAction.setBadgeText({text: mobbrEnabledUrlBadgeText, tabId: tabId});
 			if (selectedId == tabId) {
 				updateSelected(tabId);
 			}
@@ -48,9 +49,9 @@ function updateUrl(tabId) {
 		
 		urls[tabId] = response.url;
 
-		chrome.browserAction.setIcon({path: "icons/mobbr16gs.png", tabId: tabId});
+		chrome.browserAction.setBadgeText({text: "", tabId: tabId});
 		if (response.participation) {
-			chrome.browserAction.setIcon({path: "icons/mobbr16.png", tabId: tabId});
+			chrome.browserAction.setBadgeText({text: mobbrEnabledUrlBadgeText, tabId: tabId});
 			if (selectedId == tabId) {
 				updateSelected(tabId);
 			}
