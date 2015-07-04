@@ -3,7 +3,7 @@
     "short_name" : "Mobbr online payments",
 	"version": "0.1",
     "author": "Mobbr",
-    "description": "Donate, pay or fund any URL, we make sure everybody get's their fair share.",
+    "description": "Donate, pay or fund any URL, we make sure everybody gets their fair share.",
     "homepage_url": "https://mobbr.com",
 	"icons": {
         "64" : "icons/icon.png",
