@@ -14,3 +14,5 @@ The browser button should be not much more (or less) than 'an-out-of-page' Mobbr
 1. In Chrome browser open URL: chrome://extensions
 2. Check 'Developer mode'
 3. Choose 'Load unpacked extension' and browse to code
+
+Chrome-store version: https://chrome.google.com/webstore/detail/mobbr/fjjhlipdnpphnphmplgkakinbkcippnl
