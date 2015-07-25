@@ -25,8 +25,8 @@ function updateSelected(tabId) {
 	console.log("updateSelected - tabId: " + tabId + ", selectedUrl: " + selectedUrl);
 }
 
-function mobbrEnabledUrl(tabId) {
-	chrome.browserAction.setBadgeText({text: mobbrEnabledUrlBadgeText, tabId: tabId});
+function mobbrEnabledUrl(tabId, badgeText) {
+	chrome.browserAction.setBadgeText({text: badgeText, tabId: tabId});
 	if (selectedId == tabId) {
 		updateSelected(tabId);
 	}
@@ -38,7 +38,7 @@ function detectApi(url, tabId) {
 	var cached_val = detectApi_cache.get(host);
 	if(cached_val != undefined)	{
 		if(cached_val) {
-			mobbrEnabledUrl(tabId);
+			mobbrEnabledUrl(tabId, mobbrEnabledUrlBadgeText);
 		}
 		return;
 	}
@@ -52,7 +52,7 @@ function detectApi(url, tabId) {
 	nanoajax.ajax(options, function (code, responseText) {
 		if(code == 200) {
 			if(hostFound(host, JSON.parse(responseText)["result"])) {
-				mobbrEnabledUrl(tabId);
+				mobbrEnabledUrl(tabId, mobbrEnabledUrlBadgeText);
 				detectApi_cache.set(host, true);
 			}
 			else {
@@ -75,7 +75,7 @@ function updateUrl(tabId) {
 
 		chrome.browserAction.setBadgeText({text: "", tabId: tabId});
 		if (response.participation) {
-			mobbrEnabledUrl(tabId);
+			mobbrEnabledUrl(tabId, response.numberParticipants.toString());
 		} else {
 			detectApi(response.url, tabId);
 		}

@@ -24,7 +24,8 @@ if (window == top) {
 var findParticipation = function() {
 	var participation = document.getElementsByName("participation");
 	if (participation.length > 0) {
-		return {url: window.location.href, participation: true};
+		var content = JSON.parse(participation[0].content);
+		return {url: window.location.href, participation: true, numberParticipants: content.participants.length};
 	}
 	return {url: window.location.href, participation: false};
 }
