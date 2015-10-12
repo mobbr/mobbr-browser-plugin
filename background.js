@@ -62,6 +62,40 @@ function detectApi(url, tabId) {
 	});
 }
 
+function showGreenIcon(tabId) {
+	chrome.browserAction.setIcon({path: "icons/icon-green.png", tabId: tabId});
+}
+
+var detectPayment_cache = new LRUCache(20);
+function detectPayment(url, tabId) {
+	var cached_val = detectPayment_cache.get(url);
+	if(cached_val != undefined)	{
+		if(cached_val) {
+			showGreenIcon(tabId);
+		}
+		return;
+	}
+
+	var options = {
+		url: 'https://api.mobbr.com/api_v1/balances/uri?url='+url,
+		method: 'GET',
+		headers: {Accept: 'application/json'}
+	};
+
+	nanoajax.ajax(options, function (code, responseText) {
+		if(code == 200) {
+			var response = JSON.parse(responseText);
+			if(response.result.total_amount > 0) {
+				showGreenIcon(tabId);
+				detectPayment_cache.set(url, true);
+			}
+			else {
+				detectPayment_cache.set(url, false);
+			}
+		}
+	});
+}
+
 function updateUrl(tabId) {
 	chrome.tabs.sendRequest(tabId, {reqType: "findParticipation"}, function(response) {
 		console.log("updateUrl - tabId: " + tabId + ", response: " + JSON.stringify(response));
@@ -79,6 +113,7 @@ function updateUrl(tabId) {
 		} else {
 			detectApi(response.url, tabId);
 		}
+		detectPayment(response.url, tabId);
 	});
 }
 
